@@ -1,0 +1,3 @@
+Ribbon emitting=True vertices=7
+Ribbon emitting=True vertices=7
+FOV=65.60527

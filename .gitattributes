@@ -1,0 +1,8 @@
+# Preserve existing source/Unity file bytes across Windows clones.
+# -text does not disable automatic text diffs; no custom merge driver required.
+* -text
+
+# WSL entry points must retain LF even in GitHub Desktop on Windows.
+Tools/**/*.sh text eol=lf
+
+# No Git LFS filters: current tracked candidates have no files >= 50 MiB.

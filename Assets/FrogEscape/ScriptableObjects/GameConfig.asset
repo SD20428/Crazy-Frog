@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3213dc8f9611efe4390a291980ce5464, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Assembly-CSharp::FrogEscape.GameConfig
+  easy:
+    label: EASY
+    health: 4
+    speed: 24
+    lateralSpeed: 8
+    warningTime: 2.5
+    invulnerability: 2
+    dodgeDuration: 0.85
+    dodgeCooldown: 2.2
+    missileDodgeWindow: 1.05
+    attackInterval: 6
+    prediction: 0.25
+    policeGap: 18
+    policeSpeed: 34
+    missileTurnRate: 95
+    missileMaxSpeed: 65
+    obstacleStride: 2
+  normal:
+    label: NORMAL
+    health: 3
+    speed: 28
+    lateralSpeed: 8
+    warningTime: 1.8
+    invulnerability: 1.5
+    dodgeDuration: 0.85
+    dodgeCooldown: 2.2
+    missileDodgeWindow: 0.65
+    attackInterval: 4.8
+    prediction: 0.45
+    policeGap: 14
+    policeSpeed: 39
+    missileTurnRate: 125
+    missileMaxSpeed: 75
+    obstacleStride: 1
+  menuScene: Assets/FrogEscape/Scenes/MainMenu.unity
+  endingScene: Assets/FrogEscape/Scenes/Ending.unity
+  stageScenes:
+  - Assets/FrogEscape/Scenes/Stage01_Overpass.unity
+  - Assets/FrogEscape/Scenes/Stage02_Sewer.unity
+  - Assets/FrogEscape/Scenes/Stage03_MissileChase.unity
+  stageDurations:
+  - 60
+  - 65
+  - 67
+  transitions:
+  - {fileID: 11400000, guid: 533de919e86338b4e8996fbfb4d77da6, type: 2}
+  - {fileID: 11400000, guid: 10ea68820cab59149a9b720bd98ba4de, type: 2}
+  ending: {fileID: 11400000, guid: eeb1adc0aa362aa44b1bc1f5fc243054, type: 2}
+  music: {fileID: 8300000, guid: 23e5d3fca2fb82043b7d0e642999edc6, type: 3}
+  engine: {fileID: 8300000, guid: b43b2b71ed2324e439f29b3e2042c7d4, type: 3}
+  siren: {fileID: 8300000, guid: 658b4b7a74f00514f8e52925dbd92d26, type: 3}
+  warning: {fileID: 8300000, guid: 527cdb38693082b4a82d236a9f8dbf96, type: 3}
+  dodge: {fileID: 8300000, guid: ae12554c843c0dd4491de3318b28e2d8, type: 3}
+  impact: {fileID: 8300000, guid: 4e31bc885e841e64fab389c85f7f4c50, type: 3}
+  landing: {fileID: 8300000, guid: 5d7c5a57d8f68c948851be4c6e69c98f, type: 3}
+  victory: {fileID: 8300000, guid: 9e4cec08960513c43b379fe6f0c5807e, type: 3}
+  warningMaterial: {fileID: 2100000, guid: b2dc736a74191c24dbcbdafba7a8da32, type: 2}
+  successMaterial: {fileID: 2100000, guid: 705e1d93b9d072c47b6050c80294b446, type: 2}

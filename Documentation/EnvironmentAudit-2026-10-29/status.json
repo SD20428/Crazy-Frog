@@ -1,0 +1,22 @@
+{
+  "success": true,
+  "command": "status",
+  "data": {
+    "count": 1,
+    "instances": [
+      {
+        "port": 7800,
+        "project": "C:\\Users\\USER\\Desktop\\Unity\\Crazy Frog",
+        "projectPath": "C:\\Users\\USER\\Desktop\\Unity\\Crazy Frog",
+        "version": "6000.3.23f1",
+        "editorVersion": "6000.3.23f1",
+        "pid": 36944,
+        "state": "ready",
+        "role": "main",
+        "instanceName": "Main Editor"
+      }
+    ]
+  },
+  "errors": [],
+  "warnings": []
+}

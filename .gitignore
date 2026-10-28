@@ -1,0 +1,40 @@
+# Unity-generated data (root only; never exclude Assets or .meta files).
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Bb]uild/
+/[Bb]uilds/
+/[Uu]ser[Ss]ettings/
+/MemoryCaptures/
+/Recordings/
+/[Aa]rtifacts/
+
+# Local backups and per-run P1 reports are retained on disk, not in Git.
+/Backups/
+/ValidationResults/
+
+# Generated IDE files; keep the shared .vsconfig.
+/.vs/
+/.idea/
+/*.csproj
+/*.sln
+/*.slnx
+/*.suo
+/*.user
+/*.userprefs
+/*.pidb
+/*.booproj
+/*.svd
+
+# Per-device agent/connection configuration and local credentials.
+/.codex/
+/.mcp.json
+/.env
+/.env.*
+!/.env.example
+
+# OS-generated files.
+.DS_Store
+Thumbs.db
+Desktop.ini

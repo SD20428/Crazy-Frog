@@ -1,0 +1,28 @@
+{
+  "success": true,
+  "command": "command scene list_open",
+  "data": {
+    "command": "scene list_open",
+    "parameters": {},
+    "result": {
+      "count": 1,
+      "scenes": [
+        {
+          "name": "MainMenu",
+          "path": "Assets/FrogEscape/Scenes/MainMenu.unity",
+          "isLoaded": true,
+          "isDirty": false,
+          "isActive": true,
+          "rootCount": 16
+        }
+      ]
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\USER\\Desktop\\Unity\\Crazy Frog"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

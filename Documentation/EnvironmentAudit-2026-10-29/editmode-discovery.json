@@ -1,0 +1,25 @@
+{
+  "success": true,
+  "command": "command test list",
+  "data": {
+    "command": "test list",
+    "parameters": {
+      "mode": "editor"
+    },
+    "result": {
+      "Mode": "EditMode",
+      "Count": 0,
+      "Tests": [],
+      "success": true,
+      "result": null,
+      "message": "Found 0 test(s)."
+    },
+    "target": {
+      "host": "127.0.0.1",
+      "port": 7800,
+      "projectPath": "C:\\Users\\USER\\Desktop\\Unity\\Crazy Frog"
+    }
+  },
+  "errors": [],
+  "warnings": []
+}

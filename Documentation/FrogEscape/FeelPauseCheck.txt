@@ -1,0 +1,2 @@
+Pause freezes wheel and travel: True
+Resume rotates wheel: True

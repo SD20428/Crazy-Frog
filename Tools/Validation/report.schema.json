@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Crazy Frog P1 collector report",
+  "type": "object",
+  "required": ["schemaVersion", "runId", "startedAtUtc", "finishedAtUtc", "projectPath", "expectedUnityVersion", "unityVersion", "unityCliPath", "reportPath", "scope", "overall", "exitCode", "lock", "editor", "compile", "console", "tests", "reasons", "commands"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "runId": {"type": "string", "pattern": "^[0-9]{8}T[0-9]{9}Z-[a-f0-9]{32}$"},
+    "startedAtUtc": {"type": "string", "format": "date-time"},
+    "finishedAtUtc": {"type": "string", "format": "date-time"},
+    "projectPath": {"const": "C:\\Users\\USER\\Desktop\\Unity\\Crazy Frog"},
+    "expectedUnityVersion": {"const": "6000.3.23f1"},
+    "unityVersion": {"type": ["string", "null"]},
+    "unityCliPath": {"type": "string"},
+    "reportPath": {"type": "string"},
+    "scope": {"const": "read_only_collection"},
+    "overall": {"enum": ["PASS", "FAIL", "INCOMPLETE", "ERROR"]},
+    "exitCode": {"enum": [0, 1, 2, 3]},
+    "lock": {
+      "type": "object", "required": ["acquired", "path"], "additionalProperties": false,
+      "properties": {"acquired": {"type": "boolean"}, "path": {"type": "string"}}
+    },
+    "editor": {
+      "type": "object", "required": ["connection", "pid", "playMode"], "additionalProperties": false,
+      "properties": {"connection": {"enum": ["not_queried", "ready", "error"]}, "pid": {"type": ["integer", "null"]}, "playMode": {"type": ["string", "null"]}}
+    },
+    "compile": {
+      "type": "object", "required": ["queryStatus", "state", "compiling", "failed", "freshCompilation", "execution", "evidence"], "additionalProperties": false,
+      "properties": {
+        "queryStatus": {"$ref": "#/definitions/queryStatus"}, "state": {"type": ["string", "null"]},
+        "compiling": {"type": ["boolean", "null"]}, "failed": {"type": ["boolean", "null"]},
+        "freshCompilation": {"const": false}, "execution": {"const": "not_run"}, "evidence": {"const": "status_only"}
+      }
+    },
+    "console": {
+      "type": "object", "required": ["queryStatus", "errors", "warnings", "session", "cursor", "sampledUtc", "ageMs", "entries", "dropped", "reset"], "additionalProperties": false,
+      "properties": {
+        "queryStatus": {"$ref": "#/definitions/queryStatus"}, "errors": {"$ref": "#/definitions/count"}, "warnings": {"$ref": "#/definitions/count"},
+        "session": {"type": ["string", "null"]}, "cursor": {"type": ["integer", "null"]}, "sampledUtc": {"type": ["string", "null"]}, "ageMs": {"type": ["number", "null"], "minimum": 0},
+        "entries": {"type": "array"}, "dropped": {"type": ["boolean", "null"]}, "reset": {"type": ["boolean", "null"]}
+      }
+    },
+    "tests": {
+      "type": "object", "required": ["editMode", "playMode"], "additionalProperties": false,
+      "properties": {"editMode": {"$ref": "#/definitions/testDiscovery"}, "playMode": {"$ref": "#/definitions/testDiscovery"}}
+    },
+    "reasons": {
+      "type": "array", "items": {"type": "object", "required": ["code", "stage", "message"], "additionalProperties": false,
+        "properties": {"code": {"type": "string"}, "stage": {"type": "string"}, "message": {"type": "string"}}}
+    },
+    "commands": {
+      "type": "array", "items": {
+        "type": "object", "required": ["name", "arguments", "status", "exitCode", "jsonSuccess", "resultSuccess", "startedAtUtc", "finishedAtUtc", "stdoutFile", "stderrFile", "error", "response"], "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"}, "arguments": {"type": "array", "items": {"type": "string"}}, "status": {"$ref": "#/definitions/queryStatus"},
+          "exitCode": {"type": ["integer", "null"]}, "jsonSuccess": {"type": ["boolean", "null"]}, "resultSuccess": {"type": ["boolean", "null"]},
+          "startedAtUtc": {"type": ["string", "null"]}, "finishedAtUtc": {"type": ["string", "null"]},
+          "stdoutFile": {"type": ["string", "null"]}, "stderrFile": {"type": ["string", "null"]}, "error": {"type": ["string", "null"]}, "response": {"type": ["object", "null"]}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "queryStatus": {"enum": ["success", "error", "not_run"]},
+    "count": {"type": ["integer", "null"], "minimum": 0},
+    "testDiscovery": {"type": "object", "required": ["queryStatus", "discovered", "execution"], "additionalProperties": false,
+      "properties": {"queryStatus": {"$ref": "#/definitions/queryStatus"}, "discovered": {"$ref": "#/definitions/count"}, "execution": {"const": "not_run"}}}
+  },
+  "allOf": [
+    {"if": {"properties": {"overall": {"const": "PASS"}}}, "then": {"properties": {"exitCode": {"const": 0}}}},
+    {"if": {"properties": {"overall": {"const": "FAIL"}}}, "then": {"properties": {"exitCode": {"const": 1}}}},
+    {"if": {"properties": {"overall": {"const": "ERROR"}}}, "then": {"properties": {"exitCode": {"const": 2}}}},
+    {"if": {"properties": {"overall": {"const": "INCOMPLETE"}}}, "then": {"properties": {"exitCode": {"const": 3}}}}
+  ]
+}
