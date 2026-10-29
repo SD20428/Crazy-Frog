@@ -20,8 +20,8 @@ namespace FrogEscape
         int selected;
         float lastBeep;
         readonly Color ink=new Color(.12f,.23f,.48f,.97f),cyan=new Color(.48f,1,.22f),yellow=new Color(1,.86f,.18f);
-        static readonly string[] Chapters={"STAGE 1   고가도로!","STAGE 2   하수도!","STAGE 3   유도탄 추격!"};
-        static readonly string[] Names={"고가도로 · 도시를 가로질러","하수도 · 조준선을 피하세요","외부 도로 · 마지막 추격"};
+        static readonly string[] Chapters={"STAGE 1   고가도로!","STAGE 2   하수도!","STAGE 3   경찰 보스!"};
+        static readonly string[] Names={"고가도로 · 도시를 가로질러","하수도 · 수문과 물살을 뚫으세요","경찰 보스 · 공격을 피해서 방어력을 깎으세요"};
         void Awake()
         {
             if(koreanFont==null)
@@ -98,7 +98,7 @@ namespace FrogEscape
             feedbackCard=Box("FeedbackCard",playHUD,new Vector2(.5f,0),new Vector2(.5f,0),new Vector2(0,165),new Vector2(1200,70),ink);
             feedback=Label("Feedback",feedbackCard,Vector2.one*.5f,Vector2.one*.5f,Vector2.zero,new Vector2(1160,60),30,cyan);feedback.alignment=TextAlignmentOptions.Center;
             var control=Box("Controls",playHUD,new Vector2(0,0),Vector2.zero,new Vector2(42,36),new Vector2(780,96),ink);
-            Label("Keys",control,new Vector2(0,.5f),new Vector2(0,.5f),new Vector2(25,0),new Vector2(730,70),23,Color.white,"A / D  이동     SPACE  회피     ESC  일시정지");
+            Label("Keys",control,new Vector2(0,.5f),new Vector2(0,.5f),new Vector2(25,0),new Vector2(730,70),23,Color.white,"A/D 좌우 · W/S 높이 · SPACE 홉 · ESC 정지");
             var dodgeCard=Box("DodgeCard",playHUD,new Vector2(1,0),new Vector2(1,0),new Vector2(-42,36),new Vector2(360,96),ink);
             dodge=Label("Dodge",dodgeCard,new Vector2(0,1),new Vector2(0,1),new Vector2(22,-10),new Vector2(320,55),27,cyan);
             dodgeFill=Box("Cooldown",dodgeCard,Vector2.zero,Vector2.zero,new Vector2(22,16),new Vector2(316,6),cyan).GetComponent<UnityEngine.UI.Image>();
@@ -145,7 +145,7 @@ namespace FrogEscape
             { AddButton(card,"이 스테이지 다시 도전   [ ENTER ]",-420,()=>stage.Session.Retry());AddButton(card,"처음 화면으로",-505,()=>stage.Session.ReturnToMenu()); }
             else
             { AddButton(card,"한 번 더 달리기   [ ENTER ]",-420,()=>stage.Session.StartGame());AddButton(card,"처음 화면으로",-505,()=>stage.Session.ReturnToMenu()); }
-            stats=Label("Footer",card,new Vector2(0,0),Vector2.zero,new Vector2(48,40),new Vector2(560,95),21,new Color(.65f,.76f,.79f),"← →  좌우 이동    SPACE  회피\n메뉴 선택: ↑ ↓  /  ENTER  또는 마우스");
+            stats=Label("Footer",card,new Vector2(0,0),Vector2.zero,new Vector2(48,40),new Vector2(560,95),21,new Color(.65f,.76f,.79f),"A/D 좌우 · W/S 상승/하강 · SPACE 홉\n메뉴 선택: ↑ ↓  /  ENTER  또는 마우스");
             if(buttons.Count>0 && EventSystem.current) EventSystem.current.SetSelectedGameObject(buttons[0].gameObject);
         }
         void UpdateDifficulty() { if(modeLabel) modeLabel.text=stage.Session.normalMode?"난이도  NORMAL  ·  체력 3":"난이도  EASY  ·  체력 4  [추천]"; }
@@ -176,9 +176,9 @@ namespace FrogEscape
             tutorial.text=stage.stageIndex==3?"유도탄을 타고, 추격을 뒤집다":Names[index];
             health.text=new string('♥',Mathf.Max(0,session.health))+new string('♡',Mathf.Max(0,stage.Settings.health-session.health));health.color=new Color(1,.4f,.5f);
             progressFill.rectTransform.sizeDelta=new Vector2(422*stage.Progress,20);
-            dodge.text=stage.player.dodge.CooldownProgress>=.99f?"SPACE   회피 준비 완료":"SPACE   충전 중…";
+            dodge.text=stage.player.dodge.CooldownProgress>=.99f?"SPACE   짧은 홉 준비":"SPACE   충전 중…";
             dodgeFill.rectTransform.sizeDelta=new Vector2(316*stage.player.dodge.CooldownProgress,6);
-            feedback.text=Time.time<stage.feedbackUntil?stage.feedback:stage.stageIndex==0 && stage.elapsed<12?"자동으로 달려요! A / D로 움직이고 SPACE로 피해요.":stage.stageIndex==1 && stage.elapsed<9?"노란 조준선이 보이면 옆으로! SPACE로도 회피할 수 있어요.":"";
+            feedback.text=Time.time<stage.feedbackUntil?stage.feedback:stage.stageIndex==0 && stage.elapsed<12?"W/S로 상승·하강! A/D와 함께 써서 초록 통로로!":stage.stageIndex==1 && stage.elapsed<9?"빨간 입체 박스는 충돌! 천장 아래로 내려가고 수문은 올라서 넘어요.":"";
             feedbackCard.gameObject.SetActive(!string.IsNullOrEmpty(feedback.text));
             warning.text="";warning.color=yellow;
             if(stage.beatRush && stage.beatRush.Presenting && stage.Playing)
@@ -187,6 +187,7 @@ namespace FrogEscape
                 warning.text=rush.Cue+"  /  "+rush.Countdown.ToString("0.0")+"s";
                 warning.color=rush.JumpRequired?yellow:cyan;
                 tutorial.text="BEAT RUSH  /  COMBO "+rush.Combo+"  /  CLEAR "+rush.Cleared;
+                if(stage.stageIndex==2) tutorial.text="POLICE BOSS / PHASE "+rush.BossPhase+" / ARMOR "+rush.BossHealth+" / 12";
             }
             if(stage.stageIndex==1 && stage.attack.IsWarning) warning.text="!   "+stage.attack.PatternName+"   ·   조준선에서 벗어나세요";
             if(stage.stageIndex==2)

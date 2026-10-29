@@ -25,7 +25,7 @@ namespace FrogEscape
         public GameManager Session => GameManager.Instance;
         public DifficultySettings Settings => Session.Settings;
         public bool Playing => Session != null && Session.mode == GameMode.Playing;
-        public float Progress => stageIndex >= 0 && stageIndex < 3 ? Mathf.Clamp01(elapsed/config.stageDurations[stageIndex]) : 0;
+        public float Progress => stageIndex == 2 && beatRush ? 1-beatRush.BossHealth/12f : stageIndex >= 0 && stageIndex < 3 ? Mathf.Clamp01(elapsed/config.stageDurations[stageIndex]) : 0;
         void Awake() { GameManager.Ensure(config); }
         void Start()
         {
@@ -49,6 +49,11 @@ namespace FrogEscape
                         if (obstacle.visual) obstacle.visual.gameObject.SetActive(false);
                     beatRush = gameObject.AddComponent<BeatRushDirector>();
                     beatRush.stage = this;
+                    if(stageIndex==2)
+                    {
+                        missile.enabled=false;missile.model.gameObject.SetActive(false);
+                        missile.warningZone.gameObject.SetActive(false);police.enabled=false;
+                    }
                     if (stageIndex == 1)
                     {
                         // The beat director owns sewer attacks; do not stack the old gun scheduler.

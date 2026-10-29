@@ -27,8 +27,8 @@ namespace FrogEscape
             }
             else
             {
-                desired=stage.road.Position(s-followDistance,stage.player.lateral*.5f,height);
-                look=stage.road.Position(s+11,stage.player.lateral*.3f,1.3f);
+                desired=stage.road.Position(s-followDistance,stage.player.lateral*.5f,height+stage.player.altitude*.65f);
+                look=stage.road.Position(s+11,stage.player.lateral*.3f,2.4f+stage.player.altitude*.55f);
             }
             transform.position=Vector3.Lerp(transform.position,desired,blend);
             if(stage.Playing && Time.time<impactUntil)

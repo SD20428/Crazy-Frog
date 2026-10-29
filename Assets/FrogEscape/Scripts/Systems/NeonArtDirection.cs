@@ -15,6 +15,20 @@ namespace FrogEscape
         Color accent;
         void Start()
         {
+            // The new flight corridor needs clearance above the old ground-only signs.
+            // Adjust runtime instances, never the serialized scene or source art.
+            if(stage.stageIndex==0 || stage.stageIndex==2)
+                foreach(var item in FindObjectsByType<Transform>(FindObjectsSortMode.None))
+                {
+                    if(item.name=="Overhead Sign" || item.name=="Exit Arrow" ||
+                        item.name=="Sign face" || item.name=="Sign border" || item.name=="Sign text")
+                        item.position+=Vector3.up*5;
+                    else if(item.name=="Sign Pillar" || item.name=="Sign post")
+                    {
+                        item.position+=Vector3.up*2.5f;
+                        item.localScale+=Vector3.up*5;
+                    }
+                }
             accent = stage.stageIndex == 1 ? new Color(.08f,1,.72f) : stage.stageIndex == 2 ? new Color(1,.38f,.12f) : new Color(.12f,.85f,1);
             var palette = new Dictionary<string,Color> {
                 {"Asphalt",new Color(.055f,.07f,.12f)}, {"Concrete",new Color(.25f,.31f,.43f)},
