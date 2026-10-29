@@ -18,6 +18,7 @@ namespace FrogEscape
         public GameHUD hud;
         public GameAudio audioSystem;
         public ObstacleSpawner obstacles;
+        public BeatRushDirector beatRush { get; private set; }
         public float elapsed;
         public string feedback;
         public float feedbackUntil;
@@ -29,6 +30,10 @@ namespace FrogEscape
         void Start()
         {
             elapsed = 0;
+            var art = gameObject.AddComponent<NeonArtDirection>();
+            art.stage = this;
+            var detailArt = gameObject.AddComponent<DetailArtPass>();
+            detailArt.stage = this;
             if (stageIndex == -1) { Session.mode=GameMode.Menu; player.distance=80; }
             else if (stageIndex == 3) { Session.mode=GameMode.Cinematic; player.distance=50; cinematic.Begin(2); }
             else
@@ -37,6 +42,20 @@ namespace FrogEscape
                 Session.mode=GameMode.Playing;
                 player.distance=45;
                 obstacles.Configure(Settings);
+                if (stageIndex >= 0 && stageIndex <= 2)
+                {
+                    // Replace traffic rows with authored rhythm attacks, without saving scene changes.
+                    foreach (var obstacle in obstacles.obstacles)
+                        if (obstacle.visual) obstacle.visual.gameObject.SetActive(false);
+                    beatRush = gameObject.AddComponent<BeatRushDirector>();
+                    beatRush.stage = this;
+                    if (stageIndex == 1)
+                    {
+                        // The beat director owns sewer attacks; do not stack the old gun scheduler.
+                        attack.enabled = false;
+                        attack.warningZone.gameObject.SetActive(false);
+                    }
+                }
             }
             player.Place();
             chaseCamera.Snap();

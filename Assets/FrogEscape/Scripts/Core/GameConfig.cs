@@ -27,6 +27,8 @@ namespace FrogEscape
         public TimelineAsset[] transitions;
         public TimelineAsset ending;
         public AudioClip music, engine, siren, warning, dodge, impact, landing, victory;
+        [Min(1)] public float musicBpm = 120;
+        [Min(0)] public float musicBeatOffset;
         public Material warningMaterial, successMaterial;
         public DifficultySettings Get(bool normalMode) => normalMode ? normal : easy;
     }

@@ -60,7 +60,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 533de919e86338b4e8996fbfb4d77da6, type: 2}
   - {fileID: 11400000, guid: 10ea68820cab59149a9b720bd98ba4de, type: 2}
   ending: {fileID: 11400000, guid: eeb1adc0aa362aa44b1bc1f5fc243054, type: 2}
-  music: {fileID: 8300000, guid: 23e5d3fca2fb82043b7d0e642999edc6, type: 3}
+  music: {fileID: 8300000, guid: c915e67337c86194599e4610bcd2073f, type: 3}
   engine: {fileID: 8300000, guid: b43b2b71ed2324e439f29b3e2042c7d4, type: 3}
   siren: {fileID: 8300000, guid: 658b4b7a74f00514f8e52925dbd92d26, type: 3}
   warning: {fileID: 8300000, guid: 527cdb38693082b4a82d236a9f8dbf96, type: 3}
@@ -68,5 +68,7 @@ MonoBehaviour:
   impact: {fileID: 8300000, guid: 4e31bc885e841e64fab389c85f7f4c50, type: 3}
   landing: {fileID: 8300000, guid: 5d7c5a57d8f68c948851be4c6e69c98f, type: 3}
   victory: {fileID: 8300000, guid: 9e4cec08960513c43b379fe6f0c5807e, type: 3}
+  musicBpm: 138
+  musicBeatOffset: 0.19999994
   warningMaterial: {fileID: 2100000, guid: b2dc736a74191c24dbcbdafba7a8da32, type: 2}
   successMaterial: {fileID: 2100000, guid: 705e1d93b9d072c47b6050c80294b446, type: 2}

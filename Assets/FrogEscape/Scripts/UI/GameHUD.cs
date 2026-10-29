@@ -181,6 +181,13 @@ namespace FrogEscape
             feedback.text=Time.time<stage.feedbackUntil?stage.feedback:stage.stageIndex==0 && stage.elapsed<12?"자동으로 달려요! A / D로 움직이고 SPACE로 피해요.":stage.stageIndex==1 && stage.elapsed<9?"노란 조준선이 보이면 옆으로! SPACE로도 회피할 수 있어요.":"";
             feedbackCard.gameObject.SetActive(!string.IsNullOrEmpty(feedback.text));
             warning.text="";warning.color=yellow;
+            if(stage.beatRush && stage.beatRush.Presenting && stage.Playing)
+            {
+                var rush=stage.beatRush;
+                warning.text=rush.Cue+"  /  "+rush.Countdown.ToString("0.0")+"s";
+                warning.color=rush.JumpRequired?yellow:cyan;
+                tutorial.text="BEAT RUSH  /  COMBO "+rush.Combo+"  /  CLEAR "+rush.Cleared;
+            }
             if(stage.stageIndex==1 && stage.attack.IsWarning) warning.text="!   "+stage.attack.PatternName+"   ·   조준선에서 벗어나세요";
             if(stage.stageIndex==2)
             {
